@@ -1,0 +1,47 @@
+% Notes for cochlear filterbank design
+
+%% Cochlear Filter Usage
+% File name: aud24.mat (~speech/matlab/nsltools/aud24.mat)
+% Description: 24 channel/octave auditory (cochlear) filterbank 
+% # of channel: 129.
+% 	Q: Why 129 channels?
+%	A: There is an LIN operation (differentiation between adjacent channels)
+%	   which will result in one less channel output at the end of the model.
+%	   We want the # of output channel to be a power of 2 which is good for
+%	   further Fourier analysis.
+%	Q: Why 24 ch/oct?
+%	A: The spacing of musical semitones (C, C#, D, D#, ... A#, B, C) is 1/12%	   octave. The 24 ch/oct organization is good enough to resolve musical
+%	   note and ensure the equal-height note-tone will induce equal-height
+%	   output.
+%
+% Characteristic Frequency: fr = 440 * 2.^ ([(0:128)-31]/24);	% for 16 kHz
+%			or  fr = 440 * 2.^ ([(0:128)-31]/24) * SF / 16000;
+%			where SF is the sampling rate for the input signal
+load aud24;
+
+% Format of the variable COCHBA: = [ch1 ch2 .. .. ch129]
+% for m-th channel, 
+% The order of IIR: p = real(COCHBA(1, m)); 	% ranges from 4 to 14
+% The error of IIR re. target filter: err = imag(COCHBA(1, m)); % ignored 
+% The MA coefficients: B = real(COCHBA((0:p)+2, m));
+% The AR coefficients: A = imag(COCHBA((0:p)+2, m));
+
+% For instance,
+m = 60;
+p = real(COCHBA(1, m));
+B = real(COCHBA((0:p)+2, m));
+A = imag(COCHBA((0:p)+2, m));
+
+% you may see the frequency response
+freqz(B, A, 256);
+
+% impulse response
+impz(B, A);
+
+% zero-pole plot
+zplane(B', A');
+
+% (to be continues)
+%% Cochlear Filter Design
+
+%% IIR coefficient Generation

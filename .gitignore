@@ -1,0 +1,6 @@
+.#*
+tmp
+temp
+*.cor
+*.mat
+!a1map_a.map*
