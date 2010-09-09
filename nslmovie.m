@@ -27,7 +27,7 @@ function nslmovie(rst, rv, sv, paras, sound, samprate, outfile)
     p = struct;                         % Function parameter
                                         % structure. NOTE that it is not
                                         % the same as `paras`.
-    p.blur = 3;                         % Smoothing factor
+    p.blur = 5;                         % Smoothing factor
 
     p.slowdown = 2^0;                     % Slowdown factor on the replay
     p.block    = 200;                   % Number of samples to block
@@ -38,7 +38,7 @@ function nslmovie(rst, rv, sv, paras, sound, samprate, outfile)
     %% Initialize movie    
     MakeQTMovie('start', outfile);
     MakeQTMovie('quality', 1);
-    MakeQTMovie('size', [640, 480]);
+    MakeQTMovie('size', [640, 320]);
     
     
     %% Determine framerate
