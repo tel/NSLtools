@@ -3,4 +3,7 @@ tmp
 temp
 *.cor
 *.mat
+!aud24*.mat
 !a1map_a.map*
+*.mpg
+tmpxxx
