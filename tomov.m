@@ -108,6 +108,11 @@ for ci = 1:nchunks
     [ns, nr, nframe] = size(rst);
     nr = nr/2;
     
+    rstmax = max(max(max(rst)));
+    rstmin = min(min(min(rst)));
+    rescale = @(frame) ((frame-rstmin)./rstmax)*5;
+    
+
     for fi = 1:nframe
         
         % Separate halves and smooth
